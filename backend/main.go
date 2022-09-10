@@ -1,6 +1,7 @@
 package backend
 
 import (
+	"encoding/json"
 	"errors"
 	"log"
 	"os"
@@ -16,8 +17,8 @@ type Task struct {
 	ReminderTime string
 }
 
-// SaveTasks saves the current tasks to the config directory.
-func SaveTasks() {
+// SaveTasks saves the current tasks to the config directory as json objects. Note this over writes the contents of the config file, does not append to it
+func SaveTasks(items []Task) {
 	configDir := configdir.LocalConfig("todo")
 
 	// if the config directory doesn't exist, create it
@@ -34,5 +35,6 @@ func SaveTasks() {
 		log.Println(err)
 	}
 	defer f.Close()
-	f.WriteString("BYEE")
+	j, err := json.Marshal(items)
+	f.WriteString(string(j))
 }
