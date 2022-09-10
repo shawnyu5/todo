@@ -6,15 +6,16 @@ import (
 	"log"
 	"os"
 	"path"
+	"time"
 
 	"github.com/kirsle/configdir"
 )
 
 type Task struct {
 	Name         string
-	DueDate      string
+	DueDate      time.Time
 	Priority     int
-	ReminderTime string
+	ReminderTime time.Time
 }
 
 // SaveTasks saves the current tasks to the config directory as json objects. Note this over writes the contents of the config file, does not append to it
