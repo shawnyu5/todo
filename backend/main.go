@@ -16,7 +16,8 @@ type Task struct {
 	ReminderTime string
 }
 
-func CreateTask() {
+// SaveTasks saves the current tasks to the config directory.
+func SaveTasks() {
 	configDir := configdir.LocalConfig("todo")
 
 	// if the config directory doesn't exist, create it
@@ -28,10 +29,10 @@ func CreateTask() {
 	}
 
 	configFile := path.Join(configDir, "tasks.json")
-	f, err := os.OpenFile(configFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	f, err := os.OpenFile(configFile, os.O_TRUNC|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		log.Println(err)
 	}
 	defer f.Close()
-	f.WriteString("hello")
+	f.WriteString("BYEE")
 }

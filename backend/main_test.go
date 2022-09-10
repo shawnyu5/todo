@@ -9,7 +9,7 @@ import (
 
 var _ = Describe("Main", func() {
 	It("should work", func() {
-		backend.CreateTask()
+		backend.SaveTasks()
 		Expect(true).To(BeTrue())
 	})
 })
