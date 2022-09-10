@@ -1,4 +1,4 @@
-module todo
+module todo/frontend
 
 go 1.19
 
