@@ -50,6 +50,7 @@ func LoadTasks() []Task {
 	f, err := AppFs.Open(configFile)
 	if err != nil {
 		log.Println(err)
+		return []Task{}
 	}
 	defer f.Close()
 	var tasks []Task

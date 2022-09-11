@@ -50,5 +50,12 @@ var _ = Describe("Main", func() {
 			same := cmp.Equal(tasks, loadedTasks)
 			Expect(same).To(BeTrue(), "loaded tasks are incorrect")
 		})
+
+		It("should return an empty array if config file does not exist", func() {
+			// use mock file system
+			backend.AppFs = afero.NewMemMapFs()
+			tasks := backend.LoadTasks()
+			Expect(tasks).To(BeEmpty(), "tasks should be empty")
+		})
 	})
 })
