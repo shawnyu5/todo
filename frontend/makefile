@@ -5,7 +5,7 @@ help: ## Prints help for targets with comments
 
 build: ## build wasm and an executable
 	GOARCH=wasm GOOS=js go build -o web/app.wasm
-	go build
+	go build -o todo
 
 run: ## run the executable
 	./todo
