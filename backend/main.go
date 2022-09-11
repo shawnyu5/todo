@@ -14,6 +14,7 @@ import (
 
 type Task struct {
 	Name         string    `json:"name"`
+	Desription   string    `json:"description"`
 	DueDate      time.Time `json:"due_date"`
 	Priority     int       `json:"priority"`
 	ReminderTime time.Time `json:"reminder_time"`
@@ -56,7 +57,7 @@ func LoadTasks() []Task {
 	var tasks []Task
 	err = json.NewDecoder(f).Decode(&tasks)
 	if err != nil {
-		log.Println(err)
+		log.Fatal(err)
 	}
 	return tasks
 }
