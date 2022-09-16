@@ -20,6 +20,7 @@ type Task struct {
 	ReminderTime time.Time `json:"reminder_time"`
 }
 
+// expose file system to allow for overriding in tests
 var AppFs = afero.NewOsFs()
 
 // SaveTasks saves the current tasks to the config directory as json objects. Note this over writes the contents of the config file, does not append to it
@@ -33,7 +34,6 @@ func SaveTasks(items []Task) {
 			log.Println(err)
 		}
 	}
-
 	configFile := path.Join(configDir, "tasks.json")
 	f, err := AppFs.OpenFile(configFile, os.O_RDWR|os.O_CREATE, 0755)
 	if err != nil {
@@ -60,4 +60,12 @@ func LoadTasks() []Task {
 		log.Fatal(err)
 	}
 	return tasks
+}
+
+// AddTask adds a task to config directory. Return true if task was saved successfully, false other wise
+func AddTask(t Task) bool {
+	loadedTasks := LoadTasks()
+	loadedTasks = append(loadedTasks, t)
+	SaveTasks(loadedTasks)
+	return true
 }

@@ -57,5 +57,22 @@ var _ = Describe("Main", func() {
 			tasks := backend.LoadTasks()
 			Expect(tasks).To(BeEmpty(), "tasks should be empty")
 		})
+
+		Context("AddTask()", func() {
+			It("should add a task", func() {
+				backend.AppFs = afero.NewMemMapFs()
+				newTask := backend.Task{Name: "test", Desription: "test test test", DueDate: time.Now(), Priority: 1, ReminderTime: time.Now()}
+				backend.AddTask(newTask)
+				allTasks := backend.LoadTasks()
+
+				found := false
+				for _, task := range allTasks {
+					if cmp.Equal(task, newTask) {
+						found = true
+					}
+				}
+				Expect(found).To(BeTrue(), "task was not added")
+			})
+		})
 	})
 })
